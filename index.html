@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>El mundo de Pablo</title>
+	<link href="http://fonts.googleapis.com/css?family=Jura:400,600" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body>
+
+	<div id="info" class='screen'>
+		<p>Un juego de: @gnzandrs</p>
+		<img src="imgs/heroe_salto.png" class='p'>
+		<div id="datos">
+			<h1>El mundo de Pablo</h1>
+			<button class='btn start' id='otro'>Iniciar</button>
+			<p>
+				<h3>Instrucciones</h3>
+				<p>Mover personaje con flechas<p>
+				<p>Saltar flecha hacia arriba</p>
+				<p>Pasar puertas y conseguir puntos</p>
+			</p>
+
+		</div>
+	</div>
+
+	<div id="ganar" class='screen'>
+		<p>Un juego de: @gnzandrs</p>
+		<img src='imgs/heroe_salto.png' class='p'>
+		<div id="datos">
+			<h1>¡GANASTE!</h1>
+			<button class='btn start' id='otro'>Juega de nuevo</button>
+			<p>
+				<h3>Puntaje</h3>
+				<p id='puntaje'></p>
+			</p>
+		</div>
+	</div>
+
+	<div id="perder" class='screen'>
+		<p>Un juego de: @gnzandrs</p>
+		<img src='imgs/heroe_ko.png' class='p'>
+		<div id="datos">
+			<h1>Perdiste!</h1>
+			<p>Pero puedes iniciar denuevo</p>
+			<button class='btn start' id='algo'>Reintentar</button>
+			<p>
+				<h3>Instrucciones</h3>
+				<p>Mover personaje con flechas<p>
+				<p>Saltar flecha hacia arriba</p>
+				<p>Pasar puertas y conseguir puntos</p>
+			</p>
+		</div>
+	</div>
+
+	<div id="game">
+	</div>
+
+	<script src="js/preloadjs-0.1.0.min.js"></script>
+	<script src="js/kinetic-v4.3.2.min.js"></script>
+	<script src="js/heroe.js"></script>
+	<script src="js/enemigo.js"></script>
+	<script src="js/plataforma.js"></script>
+	<script src="js/moneda.js"></script>
+	<script src="js/llave.js"></script>
+	<script src="js/puerta.js"></script>
+	<script src="js/game.js"></script>
+	<script src="js/main.js"></script>
+	<script>
+		var Preloader;
+
+		var imgsAssets = ['imgs/heroe.png', 
+						'imgs/enemigo.png', 
+						'imgs/plataforma.png', 
+						'imgs/fondo.png', 
+						'imgs/llave.png', 
+						'imgs/moneda.png', 
+						'imgs/piso.png'];
+
+		window.addEventListener('load', function(){
+			Preloader = new PreloadJS();
+			Preloader.onProgress = progresoCarga;
+			cargar();
+			var iniciadores = document.getElementsByClassName('start');
+
+			for (i in iniciadores){
+				var boton = iniciadores[i];
+				if (boton.addEventListener)
+					boton.addEventListener('click', iniciarJuego);
+			}
+		});
+
+		function cargar()
+		{
+			while(imgsAssets.length >0){
+				var url = imgsAssets.shift();
+				Preloader.loadFile(url);
+			}
+		}
+
+		function progresoCarga()
+		{
+			if (Preloader.progress == 1) {
+				document.querySelector('#info').style.display = 'block';
+			}
+		}
+
+		function iniciarJuego()
+		{
+			document.querySelector('#info').style.display = 'none';
+		 	document.querySelector('#perder').style.display = 'none';
+		 	document.querySelector('#ganar').style.display = 'none';
+		 	document.querySelector('#game').style.display = 'block';
+		 	nivelUno();
+		}
+	</script>
+</body>
+</html>
