@@ -1,0 +1,31 @@
+{
+  "name": "pabloworld",
+  "version": "2.0.0",
+  "description": "Juego de Plataformas con Kinetic JS",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gnzandrs/pabloworld.git"
+  },
+  "author": "gnzandrs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gnzandrs/pabloworld/issues"
+  },
+  "homepage": "https://github.com/gnzandrs/pabloworld#readme",
+  "dependencies": {
+    "serve": "^1.4.0"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "standard": "^5.4.1"
+  },
+  "scripts": {
+    "public": "mkdir -p public",
+    "lint": "standard src/js/*.js",
+    "build-js": "NODE_PATH=. browserify src/js/init.js > public/app.js",
+    "copy-files": "cp src/css/style.css public/app.css && cp src/index.html public/index.html && cp imgs -R public/imgs",
+    "build": "npm run public && npm run build-js && npm run copy-files",
+    "serve": "serve public"
+  }
+}
