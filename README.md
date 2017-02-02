@@ -1,6 +1,5 @@
-# pabloworld
-Juego de Plataformas con Kinetic JS, gracias a CodigoFacilito
+# PabloWorld
+Juego de Plataformas con [KineticJS](https://github.com/ericdrowell/KineticJS/), gracias a CodigoFacilito
 
-@gnzandrs
-
-Demo: gnzandrs.github.io/pabloworld
+# Demo
+gnzandrs.github.io/pabloworld
