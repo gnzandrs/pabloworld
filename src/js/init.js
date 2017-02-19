@@ -66,7 +66,7 @@ var val_reb = 0 // rebote en piso
 var juego = new Game()
 
 /*eslint-disable */
-var imgEnemigo = new Image() 
+var imgEnemigo = new Image()
 imgEnemigo.src = 'imgs/enemigo.png'
 
 var imgPunta = new Image()
@@ -492,6 +492,9 @@ function detectarColPlataformas () {
           window.clearInterval(intv)
           b = false
         }
+      }
+      else {
+        personaje.setAnimation('caer')
       }
     }
   }
