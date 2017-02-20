@@ -15,9 +15,14 @@ var Heroe = function (imagen, animaciones) {
   this.attrs.frameRate = 10
   this.estaSaltando = false
   this.direccion = true
+  this.animacion = false // si existe otra animacion corriendo
 
   this.caminar = function () {
+    this.animacion = true
     this.setAnimation('caminar')
+    this.afterFrame(3, function () {
+      this.animacion = false
+    })
 
     if (this.direccion) {
       this.move(this.vx, 0)
@@ -41,6 +46,12 @@ var Heroe = function (imagen, animaciones) {
   }
 
   this.retroceder = function () {
+    this.animacion = true
+    this.setAnimation('caminar')
+    this.afterFrame(3, function () {
+      this.animacion = false
+    })
+
     if (!this.direccion) {
       this.move(-15, 0)
     } else {
@@ -94,4 +105,3 @@ var Heroe = function (imagen, animaciones) {
 Heroe.prototype = Object.create(Kinetic.Sprite.prototype)
 
 module.exports = Heroe
-

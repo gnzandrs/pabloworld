@@ -341,10 +341,6 @@ function moverPersonaje () {
   if (keyboard[38] && personaje.contador < 1) {
     personaje.saltar()
   }
-  // si no esta caminando, retrocediendo ni saltando, entonces esta estatico
-  if (!(keyboard[39] || keyboard[38] || keyboard[37]) && !personaje.estaSaltando) {
-    personaje.setAnimation('estatico')
-  }
 }
 
 function addKeyBoardEvents () {
@@ -470,6 +466,10 @@ function detectarColPlataformas () {
         personaje.contador = 0
         personaje.setY(plataforma.getY() - personaje.getHeight())
         personaje.vy *= val_reb
+        if (personaje.animacion == false)
+        {
+          personaje.setAnimation('estatico')
+        }
       } else if (plataforma instanceof Moneda) {
         plataforma.remove()
         juego.puntaje++
@@ -492,9 +492,6 @@ function detectarColPlataformas () {
           window.clearInterval(intv)
           b = false
         }
-      }
-      else {
-        personaje.setAnimation('caer')
       }
     }
   }

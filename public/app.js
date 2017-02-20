@@ -107,9 +107,14 @@ var Heroe = function (imagen, animaciones) {
   this.attrs.frameRate = 10
   this.estaSaltando = false
   this.direccion = true
+  this.animacion = false // si existe otra animacion corriendo
 
   this.caminar = function () {
+    this.animacion = true
     this.setAnimation('caminar')
+    this.afterFrame(3, function () {
+      this.animacion = false
+    })
 
     if (this.direccion) {
       this.move(this.vx, 0)
@@ -133,6 +138,12 @@ var Heroe = function (imagen, animaciones) {
   }
 
   this.retroceder = function () {
+    this.animacion = true
+    this.setAnimation('caminar')
+    this.afterFrame(3, function () {
+      this.animacion = false
+    })
+
     if (!this.direccion) {
       this.move(-15, 0)
     } else {
@@ -186,7 +197,6 @@ var Heroe = function (imagen, animaciones) {
 Heroe.prototype = Object.create(Kinetic.Sprite.prototype)
 
 module.exports = Heroe
-
 
 },{"./kinetic-v4.3.2.min.js":7}],6:[function(require,module,exports){
 require('./preloadjs-0.1.0.min.js')
@@ -257,7 +267,7 @@ var val_reb = 0 // rebote en piso
 var juego = new Game()
 
 /*eslint-disable */
-var imgEnemigo = new Image() 
+var imgEnemigo = new Image()
 imgEnemigo.src = 'imgs/enemigo.png'
 
 var imgPunta = new Image()
@@ -532,10 +542,6 @@ function moverPersonaje () {
   if (keyboard[38] && personaje.contador < 1) {
     personaje.saltar()
   }
-  // si no esta caminando, retrocediendo ni saltando, entonces esta estatico
-  if (!(keyboard[39] || keyboard[38] || keyboard[37]) && !personaje.estaSaltando) {
-    personaje.setAnimation('estatico')
-  }
 }
 
 function addKeyBoardEvents () {
@@ -661,6 +667,10 @@ function detectarColPlataformas () {
         personaje.contador = 0
         personaje.setY(plataforma.getY() - personaje.getHeight())
         personaje.vy *= val_reb
+        if (personaje.animacion == false)
+        {
+          personaje.setAnimation('estatico')
+        }
       } else if (plataforma instanceof Moneda) {
         plataforma.remove()
         juego.puntaje++
